@@ -4,32 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".login_activity">
 
     <EditText
-        android:id="@+id/phone_number"
+        android:id="@+id/validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autofillHints=""
+        android:layout_marginTop="3dp"
         android:ems="10"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toTopOf="@+id/validate_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/validate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/log_in"
+        android:text="@string/validate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number" />
+        app:layout_constraintTop_toBottomOf="@+id/validate" />
 </android.support.constraint.ConstraintLayout>
