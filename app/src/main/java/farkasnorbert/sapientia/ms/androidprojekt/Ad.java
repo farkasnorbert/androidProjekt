@@ -84,4 +84,12 @@ public class Ad {
     public void addImg(Uri img){
         this.images.add(img);
     }
+
+    public void deleteImg(Uri o){
+        this.images.remove(o);
+    }
+
+    public void deleteAllImgs(){
+        this.images.clear();
+    }
 }

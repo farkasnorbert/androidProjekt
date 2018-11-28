@@ -6,7 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,12 +17,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class add_ad extends AppCompatActivity {
+public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
     private Ad ad;
     private final int PICK_IMAGE_REQUEST = 71;
     private ImageView image1;
@@ -44,7 +48,15 @@ public class add_ad extends AppCompatActivity {
                     ad.setPhone(phone.getText().toString());
                     EditText location = findViewById(R.id.location);
                     ad.setLocation(location.getText().toString());
-
+                    Bundle queryBundle = new Bundle();
+                    ArrayList<String> imgs = new ArrayList<String>();
+                    for(Uri img :ad.getImages()){
+                        imgs.add(img.toString());
+                    }
+                    ad.deleteAllImgs();
+                    queryBundle.putString("AD", new Gson().toJson(ad));
+                    queryBundle.putStringArrayList("imgs",imgs);
+                    getSupportLoaderManager().restartLoader(0, queryBundle, add_ad.this);
                     return true;
                 case R.id.navigation_settings:
                     startActivity(new Intent(add_ad.this, login_activity.class));
@@ -86,7 +98,6 @@ public class add_ad extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
-            Log.i("kep", filePath.toString());
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 image1.setImageBitmap(bitmap);
@@ -94,11 +105,37 @@ public class add_ad extends AppCompatActivity {
                     Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), ad.getImg(ad.getImagesSize() - 1));
                     image2.setImageBitmap(bitmap2);
                 }
-                ad.addImg(filePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            ad.addImg(filePath);
         }
     }
 
+    @NonNull
+    @Override
+    public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
+        String s="";
+        ArrayList<String> imgs;
+        if(bundle != null){
+            s = bundle.getString("AD");
+        }
+        Ad ad = new Gson().fromJson(s,Ad.class);
+        if(bundle !=null){
+            imgs = bundle.getStringArrayList("imgs");
+            for(String img : imgs){
+                ad.addImg(Uri.parse(img));
+            }
+        }
+        return new DataSender(this,ad);
+    }
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String s) {
+        Log.d("fel", s);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<String> loader) {
+
+    }
 }
