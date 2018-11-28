@@ -9,4 +9,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="settings">settings</string>
     <string name="add">add</string>
+    <string name="title">title</string>
+    <string name="short_description">Short description</string>
+    <string name="long_description">Long description</string>
+    <string name="location">Location</string>
 </resources>
