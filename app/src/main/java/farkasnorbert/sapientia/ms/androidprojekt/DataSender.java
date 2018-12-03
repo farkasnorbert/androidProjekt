@@ -9,13 +9,18 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+
 public class DataSender extends AsyncTaskLoader<String> {
     private Ad ad;
     private StorageReference mStorageRef;
+    private DatabaseReference mDatabase;
     public DataSender(@NonNull Context context,Ad ad) {
         super(context);
         this.ad=ad;
@@ -28,14 +33,16 @@ public class DataSender extends AsyncTaskLoader<String> {
     }
 
     private String sendData() {
+        ArrayList<String> images = new ArrayList<String>();
         final boolean[] ok = {true};
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        for(Uri img : ad.getImages()){
-            StorageReference riversRef = mStorageRef.child("images/"+img.getLastPathSegment());
+        for(String i : ad.getImages()){
+            Uri img= Uri.parse(i);
+            StorageReference riversRef = mStorageRef.child("images/"+i.substring(i.lastIndexOf('/')+1));
+            images.add(riversRef.toString());
             riversRef.putFile(img).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //Uri downloadUrl = taskSnapshot.get
                     ok[0] =true;
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -46,6 +53,11 @@ public class DataSender extends AsyncTaskLoader<String> {
                 }
             });
         }
+        for(int i=0;i<ad.getImagesSize();i++){
+            ad.setImg(images.get(i),i);
+        }
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("data2").child(ad.getTitle()).setValue(ad);
         if(ok[0]){
             return "Jo";
         }else

@@ -17,17 +17,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
+public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private Ad ad;
     private final int PICK_IMAGE_REQUEST = 71;
     private ImageView image1;
     private ImageView image2;
+    private ImageView previous;
+    private ImageView next;
+    private int imgindex;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,13 +53,7 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                     EditText location = findViewById(R.id.location);
                     ad.setLocation(location.getText().toString());
                     Bundle queryBundle = new Bundle();
-                    ArrayList<String> imgs = new ArrayList<String>();
-                    for(Uri img :ad.getImages()){
-                        imgs.add(img.toString());
-                    }
-                    ad.deleteAllImgs();
                     queryBundle.putString("AD", new Gson().toJson(ad));
-                    queryBundle.putStringArrayList("imgs",imgs);
                     getSupportLoaderManager().restartLoader(0, queryBundle, add_ad.this);
                     return true;
                 case R.id.navigation_settings:
@@ -82,6 +80,40 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         ad = new Ad();
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
+        previous = findViewById(R.id.buttonprevious);
+        next = findViewById(R.id.buttonnext);
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ad.getImagesSize() > 2) {
+                    try {
+                        Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex-1)));
+                        image1.setImageBitmap(bitmap1);
+                        Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
+                        image2.setImageBitmap(bitmap2);
+                        imgindex--;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ad.getImagesSize() > 2) {
+                    try {
+                        Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex+1)));
+                        image1.setImageBitmap(bitmap1);
+                        Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
+                        image2.setImageBitmap(bitmap2);
+                        imgindex++;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void chooseImage() {
@@ -101,37 +133,37 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 image1.setImageBitmap(bitmap);
-                if(ad.getImagesSize()>=1) {
-                    Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), ad.getImg(ad.getImagesSize() - 1));
+                if (ad.getImagesSize() >= 1) {
+                    Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(ad.getImagesSize() - 1)));
                     image2.setImageBitmap(bitmap2);
+                    imgindex=ad.getImagesSize() - 1;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ad.addImg(filePath);
+            ad.addImg(filePath.toString());
         }
     }
 
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
-        String s="";
+        String s = "";
         ArrayList<String> imgs;
-        if(bundle != null){
+        if (bundle != null) {
             s = bundle.getString("AD");
         }
-        Ad ad = new Gson().fromJson(s,Ad.class);
-        if(bundle !=null){
-            imgs = bundle.getStringArrayList("imgs");
-            for(String img : imgs){
-                ad.addImg(Uri.parse(img));
-            }
-        }
-        return new DataSender(this,ad);
+        Ad ad = new Gson().fromJson(s, Ad.class);
+        return new DataSender(this, ad);
     }
+
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
         Log.d("fel", s);
+        if (s == "Jo") {
+            startActivity(new Intent(this, login_activity.class));
+        } else {
+        }
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Ad {
     private String ldesc;
     private String phone;
     private String location;
-    private ArrayList<Uri> images;
+    private ArrayList<String> images;
 
     public Ad(String title, String sdesc, String ldesc, String phone, String location) {
         this.title = title;
@@ -18,11 +18,11 @@ public class Ad {
         this.ldesc = ldesc;
         this.phone = phone;
         this.location = location;
-        this.images = new ArrayList<Uri>();
+        this.images = new ArrayList<String>();
     }
 
     public Ad() {
-        this.images = new ArrayList<Uri>();
+        this.images = new ArrayList<String>();
     }
 
     public String getTitle() {
@@ -45,7 +45,7 @@ public class Ad {
         return location;
     }
 
-    public ArrayList<Uri> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
@@ -69,19 +69,23 @@ public class Ad {
         this.location = location;
     }
 
-    public void setImages(ArrayList<Uri> images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
+    }
+
+    public void setImg(String img,int index){
+        this.images.set(index,img);
     }
 
     public int getImagesSize(){
         return this.images.size();
     }
 
-    public Uri getImg(int index){
+    public String getImg(int index){
         return this.images.get(index);
     }
 
-    public void addImg(Uri img){
+    public void addImg(String img){
         this.images.add(img);
     }
 
