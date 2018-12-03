@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "300233055965",
+    "firebase_url": "https://sapiadvertiser-8ea00.firebaseio.com",
+    "project_id": "sapiadvertiser-8ea00",
+    "storage_bucket": "sapiadvertiser-8ea00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300233055965:android:54176ebc9f4c75c1",
+        "android_client_info": {
+          "package_name": "com.example.oszkar.recyclerview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300233055965-j3djsg1irk5ajhj62sg5r155h5e8584o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.oszkar.recyclerview",
+            "certificate_hash": "6437823f8dcc83b804ea83b8f1431e43bcf00985"
+          }
+        },
+        {
+          "client_id": "300233055965-2to7evmg2c883kdl3n5el8o73k969eem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaVLSmcO8EijEa0J-EWhgX0lbXF5-RWr4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300233055965-2to7evmg2c883kdl3n5el8o73k969eem.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300233055965:android:87ac4ab9155bdc16",
+        "android_client_info": {
+          "package_name": "farkasnorbert.sapientia.ms.androidprojekt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300233055965-q4a9oh4qqr9uadnrcslfuovjadg67pg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "farkasnorbert.sapientia.ms.androidprojekt",
+            "certificate_hash": "0e31947493c16cd4dfafb915f030af0e5a6c57b1"
+          }
+        },
+        {
+          "client_id": "300233055965-2to7evmg2c883kdl3n5el8o73k969eem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaVLSmcO8EijEa0J-EWhgX0lbXF5-RWr4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300233055965-2to7evmg2c883kdl3n5el8o73k969eem.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

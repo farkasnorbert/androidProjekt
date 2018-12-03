@@ -3,4 +3,14 @@
     <string name="log_in">Log in</string>
     <string name="phone_number">Phone number</string>
     <string name="validate">Validate</string>
+    <string name="title_activity_add_ad">add_ad</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="settings">settings</string>
+    <string name="add">add</string>
+    <string name="title">title</string>
+    <string name="short_description">Short description</string>
+    <string name="long_description">Long description</string>
+    <string name="location">Location</string>
 </resources>
