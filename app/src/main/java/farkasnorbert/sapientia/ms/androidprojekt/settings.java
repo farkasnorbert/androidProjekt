@@ -6,9 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-public class settigs extends AppCompatActivity {
+public class settings extends AppCompatActivity {
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -18,10 +17,10 @@ public class settigs extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(new Intent(settigs.this, ads.class));
+                    startActivity(new Intent(settings.this, ads.class));
                     return true;
                 case R.id.navigation_add:
-                    startActivity(new Intent(settigs.this, add_ad.class));
+                    startActivity(new Intent(settings.this, add_ad.class));
                     return true;
                 case R.id.navigation_settings:
                     return true;
@@ -33,7 +32,7 @@ public class settigs extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settigs);
+        setContentView(R.layout.activity_settings);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

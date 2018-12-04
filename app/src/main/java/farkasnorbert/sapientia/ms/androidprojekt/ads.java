@@ -22,7 +22,7 @@ public class ads extends AppCompatActivity {
                     startActivity(new Intent(ads.this, add_ad.class));
                     return true;
                 case R.id.navigation_settings:
-                    //startActivity(new Intent(ads.this, login_activity.class));
+                    startActivity(new Intent(ads.this, settings.class));
                     return true;
             }
             return false;

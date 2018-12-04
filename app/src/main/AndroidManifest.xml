@@ -28,7 +28,7 @@
                 android:name=".ads"
                 android:label="@string/title_activity_ads"/>
         <activity
-                android:name=".settigs"
+                android:name=".settings"
                 android:label="@string/title_activity_settigs">
         </activity>
     </application>

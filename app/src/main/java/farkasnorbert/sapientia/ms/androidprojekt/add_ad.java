@@ -57,7 +57,7 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                     getSupportLoaderManager().restartLoader(0, queryBundle, add_ad.this);
                     return true;
                 case R.id.navigation_settings:
-                    startActivity(new Intent(add_ad.this, login_activity.class));
+                    startActivity(new Intent(add_ad.this, settings.class));
                     return true;
             }
             return false;
