@@ -14,4 +14,5 @@
     <string name="long_description">Long description</string>
     <string name="location">Location</string>
     <string name="title_activity_ads">ads</string>
+    <string name="title_activity_settigs">settigs</string>
 </resources>

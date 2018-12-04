@@ -39,7 +39,7 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(new Intent(add_ad.this, login_activity.class));
+                    startActivity(new Intent(add_ad.this, ads.class));
                     return true;
                 case R.id.navigation_add:
                     EditText title = findViewById(R.id.title);
