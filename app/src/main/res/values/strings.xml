@@ -15,4 +15,9 @@
     <string name="location">Location</string>
     <string name="title_activity_ads">ads</string>
     <string name="title_activity_settigs">settigs</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="adress">Adress</string>
+    <string name="todo" />
 </resources>

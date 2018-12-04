@@ -40,7 +40,8 @@
         android:src="?android:attr/actionModePasteDrawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -49,7 +50,8 @@
         android:src="@android:drawable/ic_lock_power_off"
         app:layout_constraintEnd_toStartOf="@+id/profilePicture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo" />
 
     <EditText
         android:id="@+id/fName"
