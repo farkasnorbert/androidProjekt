@@ -67,6 +67,14 @@
           }
         },
         {
+          "client_id": "300233055965-qhqhjc3alk1acsdc73tvpp6brsn5slh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "farkasnorbert.sapientia.ms.androidprojekt",
+            "certificate_hash": "6437823f8dcc83b804ea83b8f1431e43bcf00985"
+          }
+        },
+        {
           "client_id": "300233055965-2to7evmg2c883kdl3n5el8o73k969eem.apps.googleusercontent.com",
           "client_type": 3
         }

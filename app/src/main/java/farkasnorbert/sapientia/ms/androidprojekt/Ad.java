@@ -9,6 +9,16 @@ public class Ad {
     private String sdesc;
     private String ldesc;
     private String phone;
+
+    public Ad(String title, String sdesc, String ldesc, String phone, String location, ArrayList<String> images) {
+        this.title = title;
+        this.sdesc = sdesc;
+        this.ldesc = ldesc;
+        this.phone = phone;
+        this.location = location;
+        this.images = images;
+    }
+
     private String location;
     private ArrayList<String> images;
 

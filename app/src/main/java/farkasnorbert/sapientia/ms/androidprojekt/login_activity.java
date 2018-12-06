@@ -16,7 +16,7 @@ public class login_activity extends AppCompatActivity {
         validate_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(login_activity.this,add_ad.class));
+                startActivity(new Intent(login_activity.this,ads.class));
             }
         });
     }
