@@ -38,8 +38,9 @@ public class DataSender extends AsyncTaskLoader<String> {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         for(String i : ad.getImages()){
             Uri img= Uri.parse(i);
-            StorageReference riversRef = mStorageRef.child("images/"+i.substring(i.lastIndexOf('/')+1));
-            images.add(riversRef.toString());
+            StorageReference riversRef = mStorageRef.child("images"+i.substring(i.lastIndexOf('/')));
+            images.add("images"+i.substring(i.lastIndexOf('/')));
+            Log.d("fel","images"+i.substring(i.lastIndexOf('/')));
             riversRef.putFile(img).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

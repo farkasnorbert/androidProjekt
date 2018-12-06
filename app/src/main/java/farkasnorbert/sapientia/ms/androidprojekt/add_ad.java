@@ -88,9 +88,11 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                 if (ad.getImagesSize() > 2) {
                     try {
                         Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex-1)));
-                        image1.setImageBitmap(bitmap1);
+                        //image1.setImageBitmap(bitmap1);
+                        GlideApp.with(add_ad.this).load(bitmap1).into(image1);
                         Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
-                        image2.setImageBitmap(bitmap2);
+                        //image2.setImageBitmap(bitmap2);
+                        GlideApp.with(add_ad.this).load(bitmap2).into(image2);
                         imgindex--;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -104,9 +106,11 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                 if (ad.getImagesSize() > 2) {
                     try {
                         Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex+1)));
-                        image1.setImageBitmap(bitmap1);
+                        //image1.setImageBitmap(bitmap1);
+                        GlideApp.with(add_ad.this).load(bitmap1).into(image1);
                         Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
-                        image2.setImageBitmap(bitmap2);
+                        //image2.setImageBitmap(bitmap2);
+                        GlideApp.with(add_ad.this).load(bitmap2).into(image2);
                         imgindex++;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -132,10 +136,12 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                image1.setImageBitmap(bitmap);
+                //image1.setImageBitmap(bitmap);
+                GlideApp.with(add_ad.this).load(bitmap).into(image1);
                 if (ad.getImagesSize() >= 1) {
                     Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(ad.getImagesSize() - 1)));
-                    image2.setImageBitmap(bitmap2);
+                    //image2.setImageBitmap(bitmap2);
+                    GlideApp.with(add_ad.this).load(bitmap2).into(image2);
                     imgindex=ad.getImagesSize() - 1;
                 }
             } catch (IOException e) {
@@ -161,7 +167,7 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
         Log.d("fel", s);
         if (s == "Jo") {
-            startActivity(new Intent(this, login_activity.class));
+            startActivity(new Intent(this, ads.class));
         } else {
         }
     }
