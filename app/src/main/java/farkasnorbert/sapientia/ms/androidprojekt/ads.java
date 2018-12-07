@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,10 +21,8 @@ import java.util.Map;
 public class ads extends AppCompatActivity {
 
     private RecyclerView mBlogList;
-
+    private String phone;
     private DatabaseReference mDatabase;
-
-    private String TAG = "Ez";
     private RecyclerViewAdapter adapter;
 
 
@@ -34,15 +31,20 @@ public class ads extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent i;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 
                     return true;
                 case R.id.navigation_add:
-                    startActivity(new Intent(ads.this, add_ad.class));
+                    i = new Intent(ads.this, add_ad.class);
+                    i.putExtra("Phone", phone);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_settings:
-                    //startActivity(new Intent(ads.this, login_activity.class));
+                    i = new Intent(ads.this, settings.class);
+                    i.putExtra("Phone", phone);
+                    startActivity(i);
                     return true;
             }
             return false;
@@ -53,22 +55,19 @@ public class ads extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ads);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        Intent intent = getIntent();
+        phone = intent.getStringExtra("Phone");
         mDatabase = FirebaseDatabase.getInstance().getReference("data2");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "itt");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG, "itt");
-                //Blog post = dataSnapshot.getValue(Blog.class);
-                Log.d(TAG, dataSnapshot.getValue().toString());
                 collectPhoneNumbers((Map<String, Ad>) dataSnapshot.getValue());
             }
 
@@ -95,11 +94,6 @@ public class ads extends AppCompatActivity {
             Ad e = new Ad((String) singleUser.get("title"), (String) singleUser.get("sdesc"), (String) singleUser.get("ldesc"),
                     (String) singleUser.get("phone"), (String) singleUser.get("location"), (ArrayList<String>) singleUser.get("images"));
             blogs.add(e);
-        }
-        for (int i = 0; i < blogs.size(); i++) {
-            Log.d(TAG, "title: " + blogs.get(i).getTitle());
-
-
         }
 
         mBlogList = findViewById(R.id.recyclerView);

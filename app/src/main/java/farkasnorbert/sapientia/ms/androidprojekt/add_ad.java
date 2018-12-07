@@ -11,13 +11,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -26,6 +24,8 @@ import java.util.ArrayList;
 
 public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private Ad ad;
+    private String phone;
+    private Intent i;
     private final int PICK_IMAGE_REQUEST = 71;
     private ImageView image1;
     private ImageView image2;
@@ -39,7 +39,14 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(new Intent(add_ad.this, ads.class));
+                    i = new Intent(add_ad.this, ads.class);
+                    i.putExtra("Phone", phone);
+                    startActivity(i);
+                    return true;
+                case R.id.navigation_settings:
+                    i = new Intent(add_ad.this, settings.class);
+                    i.putExtra("Phone", phone);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_add:
                     EditText title = findViewById(R.id.title);
@@ -48,16 +55,13 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                     ad.setSdesc(sdesc.getText().toString());
                     EditText ldesc = findViewById(R.id.ldesc);
                     ad.setLdesc(ldesc.getText().toString());
-                    EditText phone = findViewById(R.id.phone);
-                    ad.setPhone(phone.getText().toString());
+                    EditText uphone = findViewById(R.id.phone);
+                    ad.setPhone(uphone.getText().toString());
                     EditText location = findViewById(R.id.location);
                     ad.setLocation(location.getText().toString());
                     Bundle queryBundle = new Bundle();
                     queryBundle.putString("AD", new Gson().toJson(ad));
                     getSupportLoaderManager().restartLoader(0, queryBundle, add_ad.this);
-                    return true;
-                case R.id.navigation_settings:
-                    startActivity(new Intent(add_ad.this, settings.class));
                     return true;
             }
             return false;
@@ -69,6 +73,8 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ad);
         BottomNavigationView navigation = findViewById(R.id.navigation);
+        Intent intent = getIntent();
+        phone = intent.getStringExtra("Phone");
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ImageButton addimg = findViewById(R.id.addimg);
         addimg.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +171,6 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
-        Log.d("fel", s);
         if (s == "Jo") {
             startActivity(new Intent(this, ads.class));
         } else {

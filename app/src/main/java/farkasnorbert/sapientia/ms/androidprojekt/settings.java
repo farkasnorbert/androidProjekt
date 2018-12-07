@@ -9,7 +9,8 @@ import android.view.MenuItem;
 
 public class settings extends AppCompatActivity {
 
-
+    private String phone;
+    private Intent i;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -17,10 +18,14 @@ public class settings extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(new Intent(settings.this, ads.class));
+                    i = new Intent(settings.this, ads.class);
+                    i.putExtra("Phone", phone);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_add:
-                    startActivity(new Intent(settings.this, add_ad.class));
+                    i = new Intent(settings.this, add_ad.class);
+                    i.putExtra("Phone", phone);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_settings:
                     return true;
@@ -33,7 +38,9 @@ public class settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        Intent intent = getIntent();
+        phone = intent.getStringExtra("Phone");
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
