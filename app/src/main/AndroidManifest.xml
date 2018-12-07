@@ -20,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login" />
+        <activity
+            android:name=".login"
+            android:label="login" />
         <activity
             android:name=".add_ad"
             android:label="@string/title_activity_add_ad" />
@@ -29,9 +31,13 @@
             android:label="@string/title_activity_ads" />
         <activity
             android:name=".settings"
-            android:label="@string/title_activity_settigs"></activity>
-        <activity android:name=".adview"></activity>
-        <activity android:name=".register"></activity>
+            android:label="@string/title_activity_settigs" />
+        <activity
+            android:name=".adview"
+            android:label="adview" />
+        <activity
+            android:name=".register"
+            android:label="register" />
     </application>
 
 </manifest>

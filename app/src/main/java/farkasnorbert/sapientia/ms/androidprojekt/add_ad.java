@@ -75,6 +75,8 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         BottomNavigationView navigation = findViewById(R.id.navigation);
         Intent intent = getIntent();
         phone = intent.getStringExtra("Phone");
+        EditText uphone = findViewById(R.id.phone);
+        uphone.setText(phone);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ImageButton addimg = findViewById(R.id.addimg);
         addimg.setOnClickListener(new View.OnClickListener() {

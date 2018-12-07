@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,12 +33,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(phone.getText().toString()) != true) {
-                            Log.d("fel", "register");
                             Intent send = new Intent(MainActivity.this, register.class);
                             send.putExtra("Phone", phone.getText().toString());
                             startActivity(send);
                         } else {
-                            Log.d("fel", "login");
                             Intent send = new Intent(MainActivity.this, login.class);
                             send.putExtra("Phone", phone.getText().toString());
                             startActivity(send);

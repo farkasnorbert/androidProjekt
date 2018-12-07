@@ -1,33 +1,27 @@
 package farkasnorbert.sapientia.ms.androidprojekt;
 
-import android.net.Uri;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.time.LocalDate;
-
 
 public class adview extends AppCompatActivity{
-    private static final String TAG = "fel";
-    EditText lDesc;
-    EditText phone;
-    EditText location;
-    ImageView image;
+    private EditText lDesc;
+    private EditText phone;
+    private EditText location;
+    private ImageView image;
+    private String ad;
     private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +37,9 @@ public class adview extends AppCompatActivity{
         phone.setClickable(false);
         location.setFocusable(false);
         location.setClickable(false);
-        mDatabase = FirebaseDatabase.getInstance().getReference("data2").child("Test");
+        Intent intent = getIntent();
+        ad = intent.getStringExtra("Ad");
+        mDatabase = FirebaseDatabase.getInstance().getReference("data2").child(ad);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -53,7 +49,7 @@ public class adview extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.");
+                //Log.w(TAG, "Failed to read value.");
             }
         });
     }

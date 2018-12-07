@@ -90,7 +90,6 @@ public class ads extends AppCompatActivity {
             //Get user map
             Map singleUser = (Map) entry.getValue();
             //Get phone field and append to list
-            // phoneNumbers.add((String) singleUser.get("title"));
             Ad e = new Ad((String) singleUser.get("title"), (String) singleUser.get("sdesc"), (String) singleUser.get("ldesc"),
                     (String) singleUser.get("phone"), (String) singleUser.get("location"), (ArrayList<String>) singleUser.get("images"));
             blogs.add(e);

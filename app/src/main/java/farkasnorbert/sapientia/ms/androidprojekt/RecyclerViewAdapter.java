@@ -1,6 +1,7 @@
 package farkasnorbert.sapientia.ms.androidprojekt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.WordViewHolder> {
     private ArrayList<Ad> mWordList;
     private LayoutInflater mInflater;
+    private View.OnClickListener mOnClickListener;
     public RecyclerViewAdapter(Context context,
                                ArrayList<Ad> wordList) {
         mInflater = LayoutInflater.from(context);
@@ -45,24 +45,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public RecyclerViewAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemView = mInflater.inflate(R.layout.recycler_item,
+        final View mItemView = mInflater.inflate(R.layout.recycler_item,
                 parent, false);
+        mItemView.setOnClickListener(mOnClickListener);
         return new WordViewHolder(mItemView, this);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.WordViewHolder holder, int position) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        Ad mCurrent = mWordList.get(position);
+        final Ad mCurrent = mWordList.get(position);
+        mOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), adview.class);
+                i.putExtra("Ad", mCurrent.getTitle());
+                v.getContext().startActivity(i);
+            }
+        };
         StorageReference ref = storage.getReference().child(mCurrent.getImg(0));
-
         holder.wordItemView.setText(mCurrent.getTitle());
         holder.description.setText(mCurrent.getSdesc());
         Glide.with(holder.mImage.getContext()).load(ref).into(holder.mImage);
-
-
-
-
 
     }
 
@@ -70,7 +74,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return mWordList.size();
     }
-
-
 
 }
