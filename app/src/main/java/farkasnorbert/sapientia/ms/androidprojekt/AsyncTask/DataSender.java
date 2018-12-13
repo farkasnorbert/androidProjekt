@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.AsyncTask;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,10 +17,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
+import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
+
 public class DataSender extends AsyncTaskLoader<String> {
     private Ad ad;
-    private StorageReference mStorageRef;
-    private DatabaseReference mDatabase;
+
     public DataSender(@NonNull Context context,Ad ad) {
         super(context);
         this.ad=ad;
@@ -35,7 +36,7 @@ public class DataSender extends AsyncTaskLoader<String> {
     private String sendData() {
         ArrayList<String> images = new ArrayList<String>();
         final boolean[] ok = {true};
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         for(String i : ad.getImages()){
             Uri img= Uri.parse(i);
             StorageReference riversRef = mStorageRef.child("images/" + ad.getPhone() + i.substring(i.lastIndexOf('/')));
@@ -57,7 +58,7 @@ public class DataSender extends AsyncTaskLoader<String> {
         for(int i=0;i<ad.getImagesSize();i++){
             ad.setImg(images.get(i),i);
         }
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("data2").child(ad.getTitle()).setValue(ad);
         if(ok[0]){
             return "Jo";

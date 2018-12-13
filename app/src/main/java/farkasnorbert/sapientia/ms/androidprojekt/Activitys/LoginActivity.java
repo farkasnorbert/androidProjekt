@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,18 +22,24 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
-public class register extends AppCompatActivity {
+import farkasnorbert.sapientia.ms.androidprojekt.R;
 
+public class LoginActivity extends AppCompatActivity {
     private String phone;
+    private FirebaseAuth mAuth;
     private String codeSent;
+    private EditText code;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            Intent i = new Intent(getApplicationContext(), AdsActivity.class);
+            i.putExtra("Phone", phone);
+            startActivity(i);
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            startActivity(new Intent(register.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             Toast.makeText(getApplicationContext(), "VerificationFailed", Toast.LENGTH_LONG).show();
         }
 
@@ -42,37 +48,27 @@ public class register extends AppCompatActivity {
             codeSent = s;
         }
     };
-    private DatabaseReference ref;
-    private FirebaseAuth mAuth;
-    private EditText code;
-    private EditText email;
-    private EditText fName;
-    private EditText lName;
-    private Button validate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
+        Button validate_button = findViewById(R.id.validate_button);
         Intent intent = getIntent();
-        ref = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
         mAuth = FirebaseAuth.getInstance();
         phone = intent.getStringExtra("Phone");
-        code = findViewById(R.id.vCode);
-        email = findViewById(R.id.email);
-        fName = findViewById(R.id.fname);
-        lName = findViewById(R.id.lname);
-        validate = findViewById(R.id.bValidate);
-        ref = FirebaseDatabase.getInstance().getReference("users");
+        code = findViewById(R.id.validate);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+4" + phone,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
-        validate.setOnClickListener(new View.OnClickListener() {
+        validate_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (code.length() == 0) {
                     Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
                 } else {
@@ -94,26 +90,18 @@ public class register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            writeNewUsers();
-                            Intent i = new Intent(getApplicationContext(), ads.class);
+                            /*i = new Intent(getApplicationContext(), AdsActivity.class);
                             i.putExtra("Phone", phone);
-                            startActivity(i);
+                            startActivity(i);*/
                             finish();
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 Toast.makeText(getApplicationContext(), "Invalid Code", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 });
-    }
-
-    private void writeNewUsers() {
-        User user = new User(fName.getText().toString(), lName.getText().toString(), email.getText().toString(), "");
-        ref.child(phone).setValue(user);
-        Toast.makeText(getApplicationContext(), "Registered succssefuly", Toast.LENGTH_LONG).show();
     }
 
 }

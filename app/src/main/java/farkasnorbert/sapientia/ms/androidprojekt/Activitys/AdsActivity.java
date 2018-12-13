@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +18,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ads extends AppCompatActivity {
+import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
+import farkasnorbert.sapientia.ms.androidprojekt.Other.RecyclerViewAdapter;
+import farkasnorbert.sapientia.ms.androidprojekt.R;
 
-    private RecyclerView mBlogList;
+public class AdsActivity extends AppCompatActivity {
+
     private String phone;
     private DatabaseReference mDatabase;
-    private RecyclerViewAdapter adapter;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -37,12 +39,12 @@ public class ads extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_add:
-                    i = new Intent(ads.this, add_ad.class);
+                    i = new Intent(AdsActivity.this, AddAdActivity.class);
                     i.putExtra("Phone", phone);
                     startActivity(i);
                     return true;
                 case R.id.navigation_settings:
-                    i = new Intent(ads.this, settings.class);
+                    i = new Intent(AdsActivity.this, SettingsActivity.class);
                     i.putExtra("Phone", phone);
                     startActivity(i);
                     return true;
@@ -95,9 +97,9 @@ public class ads extends AppCompatActivity {
             blogs.add(e);
         }
 
-        mBlogList = findViewById(R.id.recyclerView);
+        RecyclerView mBlogList = findViewById(R.id.recyclerView);
 
-        adapter = new RecyclerViewAdapter(this, blogs);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, blogs);
 
         mBlogList.setAdapter(adapter);
 

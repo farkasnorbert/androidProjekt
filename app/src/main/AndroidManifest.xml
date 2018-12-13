@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,22 +21,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login"
+            android:name=".Activitys.LoginActivity"
             android:label="login" />
         <activity
-            android:name=".add_ad"
+            android:name=".Activitys.AddAdActivity"
             android:label="@string/title_activity_add_ad" />
         <activity
-            android:name=".ads"
+            android:name=".Activitys.AdsActivity"
             android:label="@string/title_activity_ads" />
         <activity
-            android:name=".settings"
+            android:name=".Activitys.SettingsActivity"
             android:label="@string/title_activity_settigs" />
         <activity
-            android:name=".adview"
+            android:name=".Activitys.AdViewActivity"
             android:label="adview" />
         <activity
-            android:name=".register"
+            android:name=".Activitys.RegisterActivity"
             android:label="register" />
     </application>
 

@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Modell;
 
 public class User {
     private String fName;

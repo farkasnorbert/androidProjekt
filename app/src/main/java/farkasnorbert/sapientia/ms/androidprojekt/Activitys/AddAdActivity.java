@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,15 +22,17 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+import farkasnorbert.sapientia.ms.androidprojekt.AsyncTask.DataSender;
+import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
+import farkasnorbert.sapientia.ms.androidprojekt.Other.GlideApp;
+import farkasnorbert.sapientia.ms.androidprojekt.R;
+
+public class AddAdActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private Ad ad;
     private String phone;
-    private Intent i;
     private final int PICK_IMAGE_REQUEST = 71;
     private ImageView image1;
     private ImageView image2;
-    private ImageView previous;
-    private ImageView next;
     private int imgindex;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -39,12 +41,12 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    i = new Intent(add_ad.this, ads.class);
+                    Intent i = new Intent(AddAdActivity.this, AdsActivity.class);
                     i.putExtra("Phone", phone);
                     startActivity(i);
                     return true;
                 case R.id.navigation_settings:
-                    i = new Intent(add_ad.this, settings.class);
+                    i = new Intent(AddAdActivity.this, SettingsActivity.class);
                     i.putExtra("Phone", phone);
                     startActivity(i);
                     return true;
@@ -61,7 +63,7 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                     ad.setLocation(location.getText().toString());
                     Bundle queryBundle = new Bundle();
                     queryBundle.putString("AD", new Gson().toJson(ad));
-                    getSupportLoaderManager().restartLoader(0, queryBundle, add_ad.this);
+                    getSupportLoaderManager().restartLoader(0, queryBundle, AddAdActivity.this);
                     return true;
             }
             return false;
@@ -88,8 +90,8 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
         ad = new Ad();
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
-        previous = findViewById(R.id.buttonprevious);
-        next = findViewById(R.id.buttonnext);
+        ImageView previous = findViewById(R.id.buttonprevious);
+        ImageView next = findViewById(R.id.buttonnext);
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,10 +99,10 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                     try {
                         Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex-1)));
                         //image1.setImageBitmap(bitmap1);
-                        GlideApp.with(add_ad.this).load(bitmap1).into(image1);
+                        GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
                         Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
                         //image2.setImageBitmap(bitmap2);
-                        GlideApp.with(add_ad.this).load(bitmap2).into(image2);
+                        GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
                         imgindex--;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -115,10 +117,10 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
                     try {
                         Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex+1)));
                         //image1.setImageBitmap(bitmap1);
-                        GlideApp.with(add_ad.this).load(bitmap1).into(image1);
+                        GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
                         Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
                         //image2.setImageBitmap(bitmap2);
-                        GlideApp.with(add_ad.this).load(bitmap2).into(image2);
+                        GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
                         imgindex++;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -145,11 +147,11 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 //image1.setImageBitmap(bitmap);
-                GlideApp.with(add_ad.this).load(bitmap).into(image1);
+                GlideApp.with(AddAdActivity.this).load(bitmap).into(image1);
                 if (ad.getImagesSize() >= 1) {
                     Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(ad.getImagesSize() - 1)));
                     //image2.setImageBitmap(bitmap2);
-                    GlideApp.with(add_ad.this).load(bitmap2).into(image2);
+                    GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
                     imgindex=ad.getImagesSize() - 1;
                 }
             } catch (IOException e) {
@@ -174,7 +176,7 @@ public class add_ad extends AppCompatActivity implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
         if (s == "Jo") {
-            startActivity(new Intent(this, ads.class));
+            startActivity(new Intent(this, AdsActivity.class));
         } else {
         }
     }

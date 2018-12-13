@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import farkasnorbert.sapientia.ms.androidprojekt.R;
+
 public class MainActivity extends AppCompatActivity {
 
-    EditText phone;
+    private EditText phone;
     private DatabaseReference mDatabase;
 
     @Override
@@ -33,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(phone.getText().toString()) != true) {
-                            Intent send = new Intent(MainActivity.this, register.class);
+                            Intent send = new Intent(MainActivity.this, RegisterActivity.class);
                             send.putExtra("Phone", phone.getText().toString());
                             startActivity(send);
                         } else {
-                            Intent send = new Intent(MainActivity.this, login.class);
+                            Intent send = new Intent(MainActivity.this, LoginActivity.class);
                             send.putExtra("Phone", phone.getText().toString());
                             startActivity(send);
                         }

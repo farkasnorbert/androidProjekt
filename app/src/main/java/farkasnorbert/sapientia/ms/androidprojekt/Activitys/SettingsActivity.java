@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-public class settings extends AppCompatActivity {
+import farkasnorbert.sapientia.ms.androidprojekt.R;
+
+public class SettingsActivity extends AppCompatActivity {
 
     private String phone;
-    private Intent i;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -18,12 +19,12 @@ public class settings extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    i = new Intent(settings.this, ads.class);
+                    Intent i = new Intent(SettingsActivity.this, AdsActivity.class);
                     i.putExtra("Phone", phone);
                     startActivity(i);
                     return true;
                 case R.id.navigation_add:
-                    i = new Intent(settings.this, add_ad.class);
+                    i = new Intent(SettingsActivity.this, AddAdActivity.class);
                     i.putExtra("Phone", phone);
                     startActivity(i);
                     return true;

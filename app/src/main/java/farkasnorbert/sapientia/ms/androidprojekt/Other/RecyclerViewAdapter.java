@@ -1,4 +1,4 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Other;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+
+import farkasnorbert.sapientia.ms.androidprojekt.Activitys.AdViewActivity;
+import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
+import farkasnorbert.sapientia.ms.androidprojekt.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.WordViewHolder> {
     private ArrayList<Ad> mWordList;
@@ -52,14 +56,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.WordViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.WordViewHolder holder, final int position) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         final Ad mCurrent = mWordList.get(position);
         mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), adview.class);
-                i.putExtra("Ad", mCurrent.getTitle());
+                Intent i = new Intent(v.getContext(), AdViewActivity.class);
+                i.putExtra("Ad", mCurrent);
                 v.getContext().startActivity(i);
             }
         };

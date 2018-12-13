@@ -1,10 +1,12 @@
-package farkasnorbert.sapientia.ms.androidprojekt;
+package farkasnorbert.sapientia.ms.androidprojekt.Modell;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class Ad {
+public class Ad implements Parcelable {
     private String title;
     private String sdesc;
     private String ldesc;
@@ -32,6 +34,27 @@ public class Ad {
 
     public Ad() {
         this.images = new ArrayList<String>();
+    }
+
+    public static final Creator<Ad> CREATOR = new Creator<Ad>() {
+        @Override
+        public Ad createFromParcel(Parcel in) {
+            return new Ad(in);
+        }
+
+        @Override
+        public Ad[] newArray(int size) {
+            return new Ad[size];
+        }
+    };
+
+    protected Ad(Parcel in) {
+        title = in.readString();
+        sdesc = in.readString();
+        ldesc = in.readString();
+        phone = in.readString();
+        location = in.readString();
+        images = in.createStringArrayList();
     }
 
     public String getTitle() {
@@ -104,5 +127,20 @@ public class Ad {
 
     public void deleteAllImgs(){
         this.images.clear();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(sdesc);
+        dest.writeString(ldesc);
+        dest.writeString(phone);
+        dest.writeString(location);
+        dest.writeStringList(images);
     }
 }
