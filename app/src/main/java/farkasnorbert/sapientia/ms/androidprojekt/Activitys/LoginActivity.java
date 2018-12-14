@@ -2,17 +2,12 @@ package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -32,9 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-            Intent i = new Intent(getApplicationContext(), AdsActivity.class);
-            i.putExtra("Phone", phone);
-            startActivity(i);
+
         }
 
         @Override
@@ -65,15 +58,12 @@ public class LoginActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
-        validate_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        validate_button.setOnClickListener(v -> {
 
-                if (code.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
-                } else {
-                    verifySignInCode();
-                }
+            if (code.length() == 0) {
+                Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
+            } else {
+                verifySignInCode();
             }
         });
     }
@@ -86,20 +76,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            /*i = new Intent(getApplicationContext(), AdsActivity.class);
-                            i.putExtra("Phone", phone);
-                            startActivity(i);*/
-                            finish();
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                Toast.makeText(getApplicationContext(), "Invalid Code", Toast.LENGTH_LONG).show();
-                            }
+                .addOnCompleteListener(this, task -> {
+                    if (!task.isSuccessful()) {
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            // The verification code entered was invalid
+                            Toast.makeText(getApplicationContext(), "Invalid Code", Toast.LENGTH_LONG).show();
                         }
+                    } else {
+                        Intent i = new Intent(getApplicationContext(), AdsActivity.class);
+                        i.putExtra("Phone", phone);
+                        startActivity(i);
+                        finish();
                     }
                 });
     }
