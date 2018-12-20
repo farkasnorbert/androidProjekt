@@ -28,6 +28,12 @@ public class LoginActivity extends AppCompatActivity {
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            if (codeSent == "") {
+                Intent i = new Intent(getApplicationContext(), AdsActivity.class);
+                i.putExtra("Phone", phone);
+                startActivity(i);
+                finish();
+            }
         }
 
         @Override
@@ -53,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         phone = intent.getStringExtra("Phone");
         code = findViewById(R.id.validate);
+        codeSent = "";
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+4" + phone,        // Phone number to verify
                 60,                 // Timeout duration

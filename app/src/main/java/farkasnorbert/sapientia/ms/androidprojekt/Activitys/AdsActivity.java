@@ -84,7 +84,7 @@ public class AdsActivity extends AppCompatActivity {
 
     private void collectPhoneNumbers(Map<String, Ad> value) {
 
-        ArrayList<Ad> blogs = new ArrayList<>();
+        ArrayList<Ad> ads = new ArrayList<>();
 
         //iterate through each user, ignoring their UID
         for (Map.Entry<String, Ad> entry : value.entrySet()) {
@@ -94,16 +94,16 @@ public class AdsActivity extends AppCompatActivity {
             //Get phone field and append to list
             Ad e = new Ad((String) singleUser.get("title"), (String) singleUser.get("sdesc"), (String) singleUser.get("ldesc"),
                     (String) singleUser.get("phone"), (String) singleUser.get("location"), (ArrayList<String>) singleUser.get("images"));
-            blogs.add(e);
+            ads.add(e);
         }
 
-        RecyclerView mBlogList = findViewById(R.id.recyclerView);
+        RecyclerView mAdList = findViewById(R.id.recyclerView);
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, blogs);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, ads);
 
-        mBlogList.setAdapter(adapter);
+        mAdList.setAdapter(adapter);
 
-        mBlogList.setLayoutManager(new LinearLayoutManager(this));
+        mAdList.setLayoutManager(new LinearLayoutManager(this));
 
     }
 

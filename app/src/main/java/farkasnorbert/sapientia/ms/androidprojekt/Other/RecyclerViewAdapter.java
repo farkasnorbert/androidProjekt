@@ -25,7 +25,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<Ad> mWordList;
     private LayoutInflater mInflater;
 
-    //private View.OnClickListener mOnClickListener;
     public RecyclerViewAdapter(Context context,
                                ArrayList<Ad> wordList) {
         mInflater = LayoutInflater.from(context);
@@ -37,7 +36,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View mItemView = mInflater.inflate(R.layout.recycler_item,
                 parent, false);
-        //mItemView.setOnClickListener(mOnClickListener);
         return new WordViewHolder(mItemView, this);
     }
 
@@ -50,14 +48,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             i.putExtra("Ad", mCurrent);
             v.getContext().startActivity(i);
         });
-        /*mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), AdViewActivity.class);
-                i.putExtra("Ad", mCurrent);
-                v.getContext().startActivity(i);
-            }
-        };*/
         StorageReference ref = storage.getReference().child(mCurrent.getImg(0));
         holder.wordItemView.setText(mCurrent.getTitle());
         holder.description.setText(mCurrent.getSdesc());
