@@ -12,7 +12,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -81,50 +80,39 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
         uphone.setText(phone);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ImageButton addimg = findViewById(R.id.addimg);
-        addimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
+        addimg.setOnClickListener(v -> chooseImage());
         ad = new Ad();
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
         ImageView previous = findViewById(R.id.buttonprevious);
         ImageView next = findViewById(R.id.buttonnext);
-        previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ad.getImagesSize() > 2) {
-                    try {
-                        Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex-1)));
-                        //image1.setImageBitmap(bitmap1);
-                        GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
-                        Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
-                        //image2.setImageBitmap(bitmap2);
-                        GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
-                        imgindex--;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        previous.setOnClickListener(v -> {
+            if (ad.getImagesSize() > 2) {
+                try {
+                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex - 1)));
+                    //image1.setImageBitmap(bitmap1);
+                    GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
+                    Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
+                    //image2.setImageBitmap(bitmap2);
+                    GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
+                    imgindex--;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ad.getImagesSize() > 2) {
-                    try {
-                        Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex+1)));
-                        //image1.setImageBitmap(bitmap1);
-                        GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
-                        Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
-                        //image2.setImageBitmap(bitmap2);
-                        GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
-                        imgindex++;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        next.setOnClickListener(v -> {
+            if (ad.getImagesSize() > 2) {
+                try {
+                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex + 1)));
+                    //image1.setImageBitmap(bitmap1);
+                    GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
+                    Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex)));
+                    //image2.setImageBitmap(bitmap2);
+                    GlideApp.with(AddAdActivity.this).load(bitmap2).into(image2);
+                    imgindex++;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

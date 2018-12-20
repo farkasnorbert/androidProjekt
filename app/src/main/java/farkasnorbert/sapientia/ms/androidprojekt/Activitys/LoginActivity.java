@@ -3,6 +3,7 @@ package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
         }
 
         @Override
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             codeSent = s;
+            Log.d("fel", codeSent);
         }
     };
 
