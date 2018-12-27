@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activitys.MainActivity">
+        <activity
+            android:name=".Activitys.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,21 +24,27 @@
         </activity>
         <activity
             android:name=".Activitys.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="login" />
         <activity
             android:name=".Activitys.AddAdActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_add_ad" />
         <activity
             android:name=".Activitys.AdsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_ads" />
         <activity
             android:name=".Activitys.SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settigs" />
         <activity
             android:name=".Activitys.AdViewActivity"
+            android:screenOrientation="portrait"
             android:label="adview" />
         <activity
             android:name=".Activitys.RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="register" />
     </application>
 

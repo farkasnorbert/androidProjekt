@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void writeNewUsers() {
-        User user = new User(fName.getText().toString(), lName.getText().toString(), email.getText().toString(), "");
+        User user = new User(fName.getText().toString(), lName.getText().toString(), email.getText().toString(), "", "");
         ref.child(phone).setValue(user);
         Toast.makeText(getApplicationContext(), "Registered succssefuly", Toast.LENGTH_LONG).show();
     }

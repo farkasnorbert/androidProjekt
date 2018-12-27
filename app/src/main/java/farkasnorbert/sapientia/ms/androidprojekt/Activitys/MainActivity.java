@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,29 +26,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button loginb = findViewById(R.id.login_button);
         phone = findViewById(R.id.phone_number);
-        loginb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatabase = FirebaseDatabase.getInstance().getReference("users");
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(phone.getText().toString()) != true) {
-                            Intent send = new Intent(MainActivity.this, RegisterActivity.class);
-                            send.putExtra("Phone", phone.getText().toString());
-                            startActivity(send);
-                        } else {
-                            Intent send = new Intent(MainActivity.this, LoginActivity.class);
-                            send.putExtra("Phone", phone.getText().toString());
-                            startActivity(send);
-                        }
+        loginb.setOnClickListener(v -> {
+            mDatabase = FirebaseDatabase.getInstance().getReference("users");
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChild(phone.getText().toString()) != true) {
+                        Intent send = new Intent(MainActivity.this, RegisterActivity.class);
+                        send.putExtra("Phone", phone.getText().toString());
+                        startActivity(send);
+                    } else {
+                        Intent send = new Intent(MainActivity.this, LoginActivity.class);
+                        send.putExtra("Phone", phone.getText().toString());
+                        startActivity(send);
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
         });
     }
 
