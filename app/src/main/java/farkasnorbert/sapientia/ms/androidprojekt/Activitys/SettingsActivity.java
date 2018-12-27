@@ -30,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
     private String phone;
     private User user;
     private final int PICK_IMAGE_REQUEST = 71;
-    private DatabaseReference mDatabase;
     private EditText email;
     private EditText fName;
     private EditText lName;
@@ -71,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
         fName = findViewById(R.id.fName);
         lName = findViewById(R.id.lname);
         email = findViewById(R.id.email);
-        adress = findViewById(R.id.email);
+        adress = findViewById(R.id.adress);
         uPhone = findViewById(R.id.phone);
         pPicture = findViewById(R.id.profilePicture);
         loadUser();
@@ -84,18 +83,19 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void loadUser() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = dataSnapshot.child(phone).getValue(User.class);
-                fName.setText(user.getfName());
-                lName.setText(user.getlName());
-                email.setText(user.getEmail());
-                uPhone.setText(phone);
-                adress.setText(user.getAdress());
+                if (user != null) {
+                    fName.setText(user.getfName());
+                    lName.setText(user.getlName());
+                    email.setText(user.getEmail());
+                    uPhone.setText(phone);
+                    adress.setText(user.getAdress());
+                }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
