@@ -1,7 +1,9 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -29,6 +31,10 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             if (codeSent == "") {
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                SharedPreferences.Editor Ed = sp.edit();
+                Ed.putString("Phone", phone);
+                Ed.apply();
                 Intent i = new Intent(getApplicationContext(), AdsActivity.class);
                 i.putExtra("Phone", phone);
                 startActivity(i);
@@ -91,6 +97,10 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Invalid Code", Toast.LENGTH_LONG).show();
                         }
                     } else {
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                        SharedPreferences.Editor Ed = sp.edit();
+                        Ed.putString("Phone", phone);
+                        Ed.apply();
                         Intent i = new Intent(getApplicationContext(), AdsActivity.class);
                         i.putExtra("Phone", phone);
                         startActivity(i);

@@ -1,9 +1,11 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -74,6 +77,14 @@ public class SettingsActivity extends AppCompatActivity {
         uPhone = findViewById(R.id.phone);
         pPicture = findViewById(R.id.profilePicture);
         loadUser();
+        ImageButton logout = findViewById(R.id.logout);
+        logout.setOnClickListener(v -> {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor Ed = sp.edit();
+            Ed.putString("Phone", "");
+            Ed.apply();
+            startActivity(new Intent(this, MainActivity.class));
+        });
         Button save = findViewById(R.id.bSave);
         save.setOnClickListener(v -> {
             //save changes and reload
