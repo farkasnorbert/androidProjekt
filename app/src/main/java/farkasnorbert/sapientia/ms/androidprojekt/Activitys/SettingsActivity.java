@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -24,22 +27,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import farkasnorbert.sapientia.ms.androidprojekt.AsyncTask.UserUpdate;
+import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
 import farkasnorbert.sapientia.ms.androidprojekt.Modell.User;
 import farkasnorbert.sapientia.ms.androidprojekt.Other.GlideApp;
 import farkasnorbert.sapientia.ms.androidprojekt.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<String> {
 
     private String phone;
     private final int PICK_IMAGE_REQUEST = 71;
+    private boolean pc = false;
     private User user;
     private EditText email;
     private EditText fName;
     private EditText lName;
-    private EditText adress;
+    private EditText address;
     private EditText uPhone;
     private ImageView pPicture;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -77,7 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
         fName = findViewById(R.id.fName);
         lName = findViewById(R.id.lname);
         email = findViewById(R.id.email);
-        adress = findViewById(R.id.adress);
+        address = findViewById(R.id.address);
         uPhone = findViewById(R.id.phone);
         pPicture = findViewById(R.id.profilePicture);
         loadUser();
@@ -91,6 +98,14 @@ public class SettingsActivity extends AppCompatActivity {
         });
         save.setOnClickListener(v -> {
             //save changes and reload
+            user.setAddress(address.getText().toString());
+            user.setEmail(email.getText().toString());
+            user.setfName(fName.getText().toString());
+            user.setlName(lName.getText().toString());
+            Bundle queryBundle = new Bundle();
+            queryBundle.putString("USER", new Gson().toJson(user));
+            queryBundle.putBoolean("PC",pc);
+            getSupportLoaderManager().restartLoader(0, queryBundle, SettingsActivity.this);
         });
         Button pPic = findViewById(R.id.bGetPic);
         pPic.setOnClickListener(v -> chooseImage());
@@ -106,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
                     lName.setText(user.getlName());
                     email.setText(user.getEmail());
                     uPhone.setText(phone);
-                    adress.setText(user.getAdress());
+                    address.setText(user.getAddress());
                     if(user.getpPicture()!="") {
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference ref = storage.getReference().child(user.getpPicture());
@@ -142,6 +157,30 @@ public class SettingsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             user.setpPicture(filePath.toString());
+            pc=true;
         }
+    }
+
+    @NonNull
+    @Override
+    public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
+        String s = "";
+        Boolean pc = false;
+        if (bundle != null) {
+            s = bundle.getString("USER");
+            pc = bundle.getBoolean("PC");
+        }
+        User u = new Gson().fromJson(s, User.class);
+        return new UserUpdate(this,user,pc);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String s) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<String> loader) {
+
     }
 }

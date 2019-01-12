@@ -5,26 +5,36 @@ public class User {
     private String lName;
     private String email;
     private String pPicture;
-    private String adress;
+    private String address;
+    private String phone;
 
     public User() {
     }
 
-    public User(String fName, String lName, String email, String pPicture, String adress) {
+    public User(String fName, String lName, String email, String pPicture, String address,String phone) {
         this.fName = fName;
         this.lName = lName;
         this.email = email;
-        this.adress = adress;
+        this.address = address;
         this.pPicture = pPicture;
+        this.phone = phone;
     }
 
-    public String getAdress() {
-
-        return adress;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getfName() {
