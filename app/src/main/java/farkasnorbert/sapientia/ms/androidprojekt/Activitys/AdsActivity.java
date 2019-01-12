@@ -79,7 +79,6 @@ public class AdsActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void collectPhoneNumbers(Map<String, Ad> value) {
