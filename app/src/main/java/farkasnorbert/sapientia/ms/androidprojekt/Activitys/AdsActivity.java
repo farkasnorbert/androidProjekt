@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,7 @@ public class AdsActivity extends AppCompatActivity {
 
     private String phone;
     private DatabaseReference mDatabase;
-
+    private SwipeRefreshLayout refresh;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,16 +63,25 @@ public class AdsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         phone = intent.getStringExtra("Phone");
         mDatabase = FirebaseDatabase.getInstance().getReference("data2");
+        refresh = findViewById(R.id.swipe_container);
+        refresh.setOnRefreshListener(() -> loadAds());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        refresh.setRefreshing(true);
+        loadAds();
+    }
+
+    private void loadAds() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     collectPhoneNumbers((Map<String, Ad>) dataSnapshot.getValue());
+                }else {
+                    refresh.setRefreshing(false);
                 }
             }
 
@@ -80,7 +90,6 @@ public class AdsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void collectPhoneNumbers(Map<String, Ad> value) {
@@ -105,7 +114,7 @@ public class AdsActivity extends AppCompatActivity {
         mAdList.setAdapter(adapter);
 
         mAdList.setLayoutManager(new LinearLayoutManager(this));
-
+        refresh.setRefreshing(false);
     }
 
 }
