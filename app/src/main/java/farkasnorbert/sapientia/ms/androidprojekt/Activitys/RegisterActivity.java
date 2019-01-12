@@ -1,7 +1,9 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -115,6 +117,10 @@ public class RegisterActivity extends AppCompatActivity {
     private void writeNewUsers() {
         User user = new User(fName.getText().toString(), lName.getText().toString(), email.getText().toString(), "");
         ref.child(phone).setValue(user);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor Ed = sp.edit();
+        Ed.putString("Phone", phone);
+        Ed.apply();
         Toast.makeText(getApplicationContext(), "Registered succssefuly", Toast.LENGTH_LONG).show();
     }
 

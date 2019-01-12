@@ -1,10 +1,12 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button loginb = findViewById(R.id.login_button);
-        phone = findViewById(R.id.phone_number);
-        loginb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String p = sp.getString("Phone", "");
+        Log.d("MainActivityL", p);
+        if (p == "") {
+            Button loginb = findViewById(R.id.login_button);
+            phone = findViewById(R.id.phone_number);
+            loginb.setOnClickListener(v -> {
                 mDatabase = FirebaseDatabase.getInstance().getReference("users");
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -49,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
-            }
-        });
+            });
+        } else {
+            Log.d("MainActivity", "loaded");
+            Intent send = new Intent(this, AdsActivity.class);
+            send.putExtra("Phone", p);
+            startActivity(send);
+        }
     }
 
 
