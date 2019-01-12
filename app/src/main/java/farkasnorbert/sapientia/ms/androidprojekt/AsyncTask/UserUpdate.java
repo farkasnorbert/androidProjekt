@@ -45,7 +45,7 @@ public class UserUpdate extends AsyncTaskLoader<String> {
         Log.d("fel",user.getPhone());
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(user.getPhone()).setValue(user);
-        return "";
+        return user.getPhone();
     }
     @Override
     protected void onStartLoading() {

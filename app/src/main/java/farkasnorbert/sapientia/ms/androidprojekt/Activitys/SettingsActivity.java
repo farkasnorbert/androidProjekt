@@ -122,7 +122,7 @@ public class SettingsActivity extends AppCompatActivity  implements LoaderManage
                     email.setText(user.getEmail());
                     uPhone.setText(phone);
                     address.setText(user.getAddress());
-                    if(user.getpPicture()!="") {
+                    if(!user.getpPicture().equals("")) {
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference ref = storage.getReference().child(user.getpPicture());
                         Glide.with(getApplicationContext()).load(ref).into(pPicture);
@@ -176,7 +176,9 @@ public class SettingsActivity extends AppCompatActivity  implements LoaderManage
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
-
+        Intent i = new Intent(getApplicationContext(),AdsActivity.class);
+        i.putExtra("Phone",s);
+        startActivity(i);
     }
 
     @Override
