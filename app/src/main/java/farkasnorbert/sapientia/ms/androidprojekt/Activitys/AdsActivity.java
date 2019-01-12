@@ -70,7 +70,9 @@ public class AdsActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                collectPhoneNumbers((Map<String, Ad>) dataSnapshot.getValue());
+                if(dataSnapshot.exists()) {
+                    collectPhoneNumbers((Map<String, Ad>) dataSnapshot.getValue());
+                }
             }
 
             @Override
