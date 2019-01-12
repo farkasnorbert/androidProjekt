@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.google.firebase.database.DataSnapshot;
@@ -116,5 +117,17 @@ public class AdsActivity extends AppCompatActivity {
         mAdList.setLayoutManager(new LinearLayoutManager(this));
         refresh.setRefreshing(false);
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            // do something on back.
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return true;
+        }
 
+        return super.onKeyDown(keyCode, event);
+    }
 }

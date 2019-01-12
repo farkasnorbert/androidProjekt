@@ -79,12 +79,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pPicture"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintStart_toEndOf="@+id/updateAd"
         app:layout_constraintTop_toBottomOf="@+id/location"
         app:srcCompat="@android:drawable/ic_menu_share" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/updateAd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

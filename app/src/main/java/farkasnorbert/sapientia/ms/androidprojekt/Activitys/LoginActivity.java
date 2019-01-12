@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -72,6 +74,22 @@ public class LoginActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
+        code.setOnKeyListener((v, keyCode, event) -> {
+            switch (keyCode)
+            {
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    if (code.length() == 0) {
+                        Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
+                    } else {
+                        verifySignInCode();
+                    }
+                    return true;
+                default:
+                    break;
+            }
+            return false;
+        });
         validate_button.setOnClickListener(v -> {
 
             if (code.length() == 0) {

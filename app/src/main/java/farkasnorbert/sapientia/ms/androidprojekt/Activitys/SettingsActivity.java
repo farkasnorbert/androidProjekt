@@ -13,6 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -184,5 +185,17 @@ public class SettingsActivity extends AppCompatActivity  implements LoaderManage
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            // do something on back.
+            Intent intent = new Intent(getApplicationContext(),AdsActivity.class);
+            intent.putExtra("Phone",phone);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

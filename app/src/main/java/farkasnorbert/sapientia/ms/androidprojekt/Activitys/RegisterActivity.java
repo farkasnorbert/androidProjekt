@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,6 +75,22 @@ public class RegisterActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
+        email.setOnKeyListener((v, keyCode, event) -> {
+            switch (keyCode)
+            {
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    if (code.length() == 0) {
+                        Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
+                    } else {
+                        verifySignInCode();
+                    }
+                    return true;
+                default:
+                    break;
+            }
+            return false;
+        });
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

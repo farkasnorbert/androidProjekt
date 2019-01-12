@@ -1,9 +1,13 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -45,14 +49,28 @@ public class AdViewActivity extends AppCompatActivity {
         location = findViewById(R.id.location);
         image = findViewById(R.id.image);
         pPicture = findViewById(R.id.pPicture);
-        lDesc.setFocusable(false);
-        lDesc.setClickable(false);
-        phone.setFocusable(false);
-        phone.setClickable(false);
-        location.setFocusable(false);
-        location.setClickable(false);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String p = sp.getString("Phone", "");
         Intent intent = getIntent();
         ad = intent.getParcelableExtra("Ad");
+        ImageButton updateAd = findViewById(R.id.updateAd);
+        if(ad.getPhone().equals(p)){
+            updateAd.setOnClickListener(v -> {
+                //update add
+            });
+        }else {
+            updateAd.setVisibility(View.GONE);
+            lDesc.setFocusable(false);
+            lDesc.setClickable(false);
+            phone.setFocusable(false);
+            phone.setClickable(false);
+            location.setFocusable(false);
+            location.setClickable(false);
+            lName.setFocusable(false);
+            lName.setClickable(false);
+            fName.setFocusable(false);
+            fName.setClickable(false);
+        }
         lDesc.setText(ad.getLdesc());
         phone.setText(ad.getPhone());
         location.setText(ad.getLocation());
@@ -82,5 +100,17 @@ public class AdViewActivity extends AppCompatActivity {
         GlideApp.with(this)
                 .load(gsReference)
                 .into(image);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            // do something on back.
+            Intent intent = new Intent(getApplicationContext(),AdsActivity.class);
+            intent.putExtra("Phone",ad.getPhone());
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }
