@@ -14,12 +14,12 @@
         android:layout_height="0dp"
         android:src="@android:drawable/screen_background_light_transparent"
         app:layout_constraintBottom_toTopOf="@+id/fName"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/bSave"
         app:layout_constraintStart_toEndOf="@+id/logout"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/bSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="?android:attr/actionModePasteDrawable"
@@ -122,17 +122,6 @@
         android:text="Select profile picture"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bSave"
-        app:layout_constraintTop_toBottomOf="@+id/adress" />
-
-    <Button
-        android:id="@+id/bSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Save"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toStartOf="@+id/bGetPic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adress" />
 
