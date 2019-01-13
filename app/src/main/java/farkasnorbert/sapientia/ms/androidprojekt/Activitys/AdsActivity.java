@@ -63,7 +63,7 @@ public class AdsActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Intent intent = getIntent();
         phone = intent.getStringExtra("Phone");
-        mDatabase = FirebaseDatabase.getInstance().getReference("data2");
+        mDatabase = FirebaseDatabase.getInstance().getReference("data");
         refresh = findViewById(R.id.swipe_container);
         refresh.setOnRefreshListener(() -> loadAds());
     }

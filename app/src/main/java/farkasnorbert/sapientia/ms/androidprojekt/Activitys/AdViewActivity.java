@@ -2,10 +2,12 @@ package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +42,7 @@ public class AdViewActivity extends AppCompatActivity {
     private EditText location;
     private ImageView image;
     private ImageView pPicture;
+    StorageReference gsReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,10 +101,25 @@ public class AdViewActivity extends AppCompatActivity {
             }
         });
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference gsReference = storage.getReference().child(ad.getImg(0));
+        gsReference = storage.getReference().child(ad.getImg(0));
         GlideApp.with(this)
                 .load(gsReference)
                 .into(image);
+        ImageButton share = findViewById(R.id.share);
+        share.setOnClickListener(v -> {
+            gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                String message = ad.getTitle()+" \n"+ ad.getSdesc();
+                Intent share1 = new Intent(Intent.ACTION_SEND);
+                //share1.putExtra(Intent.EXTRA_TEXT, message);
+                share1.setType("image/*");
+                share1.putExtra(Intent.EXTRA_STREAM,uri);
+                //share1.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Log.d("fel",uri.toString());
+                startActivity(Intent.createChooser(share1, "Share"));
+            }).addOnFailureListener(exception -> {
+                // Handle any errors
+            });
+        });
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {

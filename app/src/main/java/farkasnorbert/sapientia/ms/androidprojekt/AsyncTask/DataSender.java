@@ -59,7 +59,7 @@ public class DataSender extends AsyncTaskLoader<String> {
             ad.setImg(images.get(i),i);
         }
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("data2").child(ad.getTitle()).setValue(ad);
+        mDatabase.child("data").child(ad.getPhone()+"_"+ad.getTitle()).setValue(ad);
         if(ok[0]){
             return "Jo";
         }else

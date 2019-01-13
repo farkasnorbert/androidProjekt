@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
+            Log.d("fel",e.toString());
             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             Toast.makeText(getApplicationContext(), "VerificationFailed", Toast.LENGTH_LONG).show();
         }
@@ -75,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
-        email.setOnKeyListener((v, keyCode, event) -> {
+        code.setOnKeyListener((v, keyCode, event) -> {
             switch (keyCode)
             {
                 case KeyEvent.KEYCODE_DPAD_CENTER:
@@ -91,14 +93,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
             return false;
         });
-        validate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (code.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
-                } else {
-                    verifySignInCode();
-                }
+        validate.setOnClickListener(v -> {
+            if (code.length() == 0) {
+                Toast.makeText(getApplicationContext(), "Code is empty", Toast.LENGTH_LONG).show();
+            } else {
+                verifySignInCode();
             }
         });
     }
