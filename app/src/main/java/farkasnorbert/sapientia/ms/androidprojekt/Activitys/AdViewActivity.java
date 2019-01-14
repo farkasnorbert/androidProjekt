@@ -67,6 +67,7 @@ public class AdViewActivity extends AppCompatActivity {
         location = findViewById(R.id.location);
         image = findViewById(R.id.image);
         pPicture = findViewById(R.id.pPicture);
+        ImageButton delete = findViewById(R.id.deleteAd);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String p = sp.getString("Phone", "");
         Intent intent = getIntent();
@@ -85,8 +86,16 @@ public class AdViewActivity extends AppCompatActivity {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("data").child(ad.getPhone()+"_"+ad.getTitle()).setValue(ad);
             });
+            delete.setOnClickListener(v ->{
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("data").child(ad.getPhone()+"_"+ad.getTitle()).removeValue();
+                Intent i = new Intent(this,AdsActivity.class);
+                i.putExtra("Phone",user.getPhone());
+                startActivity(i);
+            });
         } else {
             updateAd.setVisibility(View.GONE);
+            delete.setVisibility(View.GONE);
             lDesc.setFocusable(false);
             lDesc.setClickable(false);
             location.setFocusable(false);
