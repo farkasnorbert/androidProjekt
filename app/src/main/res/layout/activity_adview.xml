@@ -20,20 +20,18 @@
         android:layout_width="243dp"
         android:layout_height="118dp"
         android:ems="10"
-        android:hint="@string/long_description"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
+        app:layout_constraintBottom_toTopOf="@+id/sDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image" />
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/sDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
+        android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/fName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/sDesc" />
 
     <EditText
         android:id="@+id/lName"
@@ -67,7 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/location"
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +88,7 @@
         app:layout_constraintEnd_toStartOf="@+id/share"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location"
-        app:srcCompat="?android:attr/alertDialogIcon" />
+        app:srcCompat="?android:attr/actionModePasteDrawable" />
 
     <ImageView
         android:id="@+id/pPicture"

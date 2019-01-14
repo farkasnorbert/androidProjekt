@@ -61,7 +61,7 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
                     ad.setSdesc(sdesc.getText().toString());
                     EditText ldesc = findViewById(R.id.ldesc);
                     ad.setLdesc(ldesc.getText().toString());
-                    EditText uphone = findViewById(R.id.phone);
+                    EditText uphone = findViewById(R.id.sDesc);
                     ad.setPhone(uphone.getText().toString());
                     EditText location = findViewById(R.id.location);
                     ad.setLocation(location.getText().toString());
@@ -81,7 +81,7 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
         BottomNavigationView navigation = findViewById(R.id.navigation);
         Intent intent = getIntent();
         phone = intent.getStringExtra("Phone");
-        EditText uphone = findViewById(R.id.phone);
+        EditText uphone = findViewById(R.id.sDesc);
         uphone.setText(phone);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ImageButton addimg = findViewById(R.id.addimg);

@@ -50,6 +50,7 @@ public class AdViewActivity extends AppCompatActivity {
     private EditText location;
     private ImageView image;
     private ImageView pPicture;
+    private EditText sDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class AdViewActivity extends AppCompatActivity {
         lDesc = findViewById(R.id.lDesc);
         fName = findViewById(R.id.fName);
         lName = findViewById(R.id.lName);
-        EditText phone = findViewById(R.id.phone);
+        sDesc = findViewById(R.id.sDesc);
         location = findViewById(R.id.location);
         image = findViewById(R.id.image);
         pPicture = findViewById(R.id.pPicture);
@@ -67,8 +68,6 @@ public class AdViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ad = intent.getParcelableExtra("Ad");
         ImageButton updateAd = findViewById(R.id.updateAd);
-        phone.setFocusable(false);
-        phone.setClickable(false);
         lName.setFocusable(false);
         lName.setClickable(false);
         fName.setFocusable(false);
@@ -76,6 +75,11 @@ public class AdViewActivity extends AppCompatActivity {
         if (ad.getPhone().equals(p)) {
             updateAd.setOnClickListener(v -> {
                 //update add
+                ad.setLocation(location.getText().toString());
+                ad.setLdesc(lDesc.getText().toString());
+                ad.setSdesc(sDesc.getText().toString());
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("data").child(ad.getPhone()+"_"+ad.getTitle()).setValue(ad);
             });
         } else {
             updateAd.setVisibility(View.GONE);
@@ -83,9 +87,11 @@ public class AdViewActivity extends AppCompatActivity {
             lDesc.setClickable(false);
             location.setFocusable(false);
             location.setClickable(false);
+            sDesc.setFocusable(false);
+            sDesc.setClickable(false);
         }
         lDesc.setText(ad.getLdesc());
-        phone.setText(ad.getPhone());
+        sDesc.setText(ad.getSdesc());
         location.setText(ad.getLocation());
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {

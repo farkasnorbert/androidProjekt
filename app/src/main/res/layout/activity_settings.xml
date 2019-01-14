@@ -70,14 +70,14 @@
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
+        app:layout_constraintBottom_toTopOf="@+id/sDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lname"
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/sDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -100,7 +100,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bGetPic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/sDesc" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -89,7 +89,7 @@ public class SettingsActivity extends AppCompatActivity  implements LoaderManage
         lName = findViewById(R.id.lname);
         email = findViewById(R.id.email);
         address = findViewById(R.id.address);
-        uPhone = findViewById(R.id.phone);
+        uPhone = findViewById(R.id.sDesc);
         pPicture = findViewById(R.id.profilePicture);
         loadUser();
         ImageButton logout = findViewById(R.id.logout);
