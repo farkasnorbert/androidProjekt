@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String p = sp.getString("Phone", "");
-        Log.d("MainActivityL", p);
         if (p.equals("")) {
             Button loginb = findViewById(R.id.login_button);
             phone = findViewById(R.id.phone_number);
@@ -52,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 login();
             });
         } else {
-            Log.d("MainActivity", "loaded");
             Intent send = new Intent(this, AdsActivity.class);
             send.putExtra("Phone", p);
             startActivity(send);
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(phone.getText().toString()) != true) {
+                if (!dataSnapshot.hasChild(phone.getText().toString())) {
                     Intent send = new Intent(MainActivity.this, RegisterActivity.class);
                     send.putExtra("Phone", phone.getText().toString());
                     startActivity(send);

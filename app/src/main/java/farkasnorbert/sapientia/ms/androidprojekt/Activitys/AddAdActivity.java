@@ -21,8 +21,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -170,9 +170,10 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
-        if (s == "Jo") {
+        if (s.equals("Jo")) {
             startActivity(new Intent(this, AdsActivity.class));
         } else {
+            Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -183,7 +184,6 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            // do something on back.
             Intent intent = new Intent(getApplicationContext(),AdsActivity.class);
             intent.putExtra("Phone",phone);
             startActivity(intent);

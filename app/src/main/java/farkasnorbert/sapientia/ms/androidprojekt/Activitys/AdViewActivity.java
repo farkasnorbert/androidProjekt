@@ -15,13 +15,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -178,7 +176,6 @@ public class AdViewActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(share1, "Share"),198);
                 outStream.close();
             } catch (Exception e) {
-                Log.d("fel",e.toString());
                 e.printStackTrace();
             }
         });
@@ -186,7 +183,6 @@ public class AdViewActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            // do something on back.
             Intent intent = new Intent(getApplicationContext(), AdsActivity.class);
             intent.putExtra("Phone", ad.getPhone());
             startActivity(intent);

@@ -65,7 +65,7 @@ public class AdsActivity extends AppCompatActivity {
         phone = intent.getStringExtra("Phone");
         mDatabase = FirebaseDatabase.getInstance().getReference("data");
         refresh = findViewById(R.id.swipe_container);
-        refresh.setOnRefreshListener(() -> loadAds());
+        refresh.setOnRefreshListener(this::loadAds);
     }
 
     @Override
