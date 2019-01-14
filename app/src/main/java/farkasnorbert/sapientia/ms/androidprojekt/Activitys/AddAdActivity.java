@@ -1,6 +1,8 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +10,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -120,6 +124,16 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private void chooseImage() {
+        if (ContextCompat.checkSelfPermission(AddAdActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(AddAdActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    2121);
+
+            return;
+        }
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);

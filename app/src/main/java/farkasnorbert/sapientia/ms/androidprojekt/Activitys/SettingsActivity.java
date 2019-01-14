@@ -1,7 +1,9 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +12,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -33,7 +37,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import farkasnorbert.sapientia.ms.androidprojekt.AsyncTask.UserUpdate;
-import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
 import farkasnorbert.sapientia.ms.androidprojekt.Modell.User;
 import farkasnorbert.sapientia.ms.androidprojekt.Other.GlideApp;
 import farkasnorbert.sapientia.ms.androidprojekt.R;
@@ -134,9 +137,18 @@ public class SettingsActivity extends AppCompatActivity  implements LoaderManage
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
     }
     private void chooseImage() {
+        if (ContextCompat.checkSelfPermission(SettingsActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SettingsActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    2121);
+            return;
+        }
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
