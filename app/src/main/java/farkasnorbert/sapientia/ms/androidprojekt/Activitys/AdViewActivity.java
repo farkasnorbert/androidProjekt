@@ -168,8 +168,6 @@ public class AdViewActivity extends AppCompatActivity {
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             2121);
 
-                    return;
-
                 }
                 File file = File.createTempFile("images", ".jpg",this.getExternalCacheDir());
                 outStream = new FileOutputStream(file);

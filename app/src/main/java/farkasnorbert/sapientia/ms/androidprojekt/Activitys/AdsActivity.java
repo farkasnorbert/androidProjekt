@@ -101,10 +101,10 @@ public class AdsActivity extends AppCompatActivity {
         for (Map.Entry<String, Ad> entry : value.entrySet()) {
 
             //Get user map
-            Map singleUser = (Map) entry.getValue();
+            Map singleAd = (Map) entry.getValue();
             //Get phone field and append to list
-            Ad e = new Ad((String) singleUser.get("title"), (String) singleUser.get("sdesc"), (String) singleUser.get("ldesc"),
-                    (String) singleUser.get("phone"), (String) singleUser.get("location"), (ArrayList<String>) singleUser.get("images"));
+            Ad e = new Ad((String) singleAd.get("title"), (String) singleAd.get("sdesc"), (String) singleAd.get("ldesc"),
+                    (String) singleAd.get("phone"), (String) singleAd.get("location"), (ArrayList<String>) singleAd.get("images") ,(String) singleAd.get("vNumber"));
             ads.add(e);
         }
 

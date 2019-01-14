@@ -44,6 +44,7 @@ public class DataSender extends AsyncTaskLoader<String> {
         for(int i=0;i<ad.getImagesSize();i++){
             ad.setImg(images.get(i),i);
         }
+        ad.setvNumber("0");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("data").child(ad.getPhone()+"_"+ad.getTitle()).setValue(ad);
         if(ok[0]){

@@ -12,24 +12,40 @@ public class Ad implements Parcelable {
     private String ldesc;
     private String phone;
     private String location;
+    private String vNumber;
     private ArrayList<String> images;
 
-    public Ad(String title, String sdesc, String ldesc, String phone, String location) {
+    public Ad(String title, String sdesc, String ldesc, String phone, String location,String vNumber) {
         this.title = title;
         this.sdesc = sdesc;
         this.ldesc = ldesc;
         this.phone = phone;
         this.location = location;
+        this.vNumber = vNumber;
         this.images = new ArrayList<String>();
     }
 
-    public Ad(String title, String sdesc, String ldesc, String phone, String location, ArrayList<String> images) {
+    public void addvNumber(){
+        int x = Integer.parseInt(vNumber)+1;
+        vNumber = Integer.toString(x);
+    }
+
+    public String getvNumber() {
+        return vNumber;
+    }
+
+    public void setvNumber(String vNumber) {
+        this.vNumber = vNumber;
+    }
+
+    public Ad(String title, String sdesc, String ldesc, String phone, String location, ArrayList<String> images,String vNumber) {
         this.title = title;
         this.sdesc = sdesc;
         this.ldesc = ldesc;
         this.phone = phone;
         this.location = location;
         this.images = images;
+        this.vNumber = vNumber;
     }
 
     public Ad() {
