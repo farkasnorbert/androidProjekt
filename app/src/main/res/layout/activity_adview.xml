@@ -8,8 +8,9 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="258dp"
-        android:layout_height="126dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/lDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,8 +18,8 @@
 
     <EditText
         android:id="@+id/lDesc"
-        android:layout_width="243dp"
-        android:layout_height="118dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/sDesc"
@@ -28,7 +29,7 @@
 
     <EditText
         android:id="@+id/sDesc"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
@@ -39,7 +40,7 @@
 
     <EditText
         android:id="@+id/fName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
@@ -51,18 +52,19 @@
 
     <EditText
         android:id="@+id/lName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fName" />
 
     <EditText
         android:id="@+id/location"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPostalAddress"
@@ -82,7 +84,7 @@
 
     <ImageButton
         android:id="@+id/updateAd"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/share"
@@ -92,22 +94,12 @@
 
     <ImageView
         android:id="@+id/pPicture"
-        android:layout_width="112dp"
-        android:layout_height="118dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/share"
         app:layout_constraintTop_toBottomOf="@+id/location"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/cName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pPicture"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
 
 </android.support.constraint.ConstraintLayout>

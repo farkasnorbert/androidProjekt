@@ -1,6 +1,7 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +39,7 @@ import java.io.OutputStream;
 import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
 import farkasnorbert.sapientia.ms.androidprojekt.Modell.User;
 import farkasnorbert.sapientia.ms.androidprojekt.Other.GlideApp;
+import farkasnorbert.sapientia.ms.androidprojekt.Other.OnSwipeTouchListener;
 import farkasnorbert.sapientia.ms.androidprojekt.R;
 
 
@@ -51,7 +54,10 @@ public class AdViewActivity extends AppCompatActivity {
     private ImageView image;
     private ImageView pPicture;
     private EditText sDesc;
+    private int index = 0;
+    private FirebaseStorage storage;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,11 +121,31 @@ public class AdViewActivity extends AppCompatActivity {
 
             }
         });
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference gsReference = storage.getReference().child(ad.getImg(0));
+        storage = FirebaseStorage.getInstance();
+        StorageReference gsReference = storage.getReference().child(ad.getImg(index));
         GlideApp.with(this)
                 .load(gsReference)
                 .into(image);
+        image.setOnTouchListener(new OnSwipeTouchListener(AdViewActivity.this) {
+            public void onSwipeLeft() {
+                if(index<ad.getImages().size()-1) {
+                    StorageReference gsReference = storage.getReference().child(ad.getImg(index+1));
+                    GlideApp.with(getApplicationContext())
+                            .load(gsReference)
+                            .into(image);
+                    index++;
+                }
+            }
+            public void onSwipeRight() {
+                if(index>0) {
+                    StorageReference gsReference = storage.getReference().child(ad.getImg(index-1));
+                    GlideApp.with(getApplicationContext())
+                            .load(gsReference)
+                            .into(image);
+                    index--;
+                }
+            }
+        });
         ImageButton share = findViewById(R.id.share);
         share.setOnClickListener(v -> {
             OutputStream outStream = null;

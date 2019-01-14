@@ -1,6 +1,7 @@
 package farkasnorbert.sapientia.ms.androidprojekt.Activitys;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import farkasnorbert.sapientia.ms.androidprojekt.AsyncTask.DataSender;
 import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
 import farkasnorbert.sapientia.ms.androidprojekt.Other.GlideApp;
+import farkasnorbert.sapientia.ms.androidprojekt.Other.OnSwipeTouchListener;
 import farkasnorbert.sapientia.ms.androidprojekt.R;
 
 public class AddAdActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
@@ -73,6 +76,7 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,27 +91,31 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
         addimg.setOnClickListener(v -> chooseImage());
         ad = new Ad();
         image1 = findViewById(R.id.image1);
-        ImageView previous = findViewById(R.id.buttonprevious);
-        ImageView next = findViewById(R.id.buttonnext);
-        previous.setOnClickListener(v -> {
-            if(imgindex>0) {
-                try {
-                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex-1)));
-                    GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
-                    imgindex--;
-                } catch (IOException e) {
-                    e.printStackTrace();
+        image1.setOnTouchListener(new OnSwipeTouchListener(AddAdActivity.this) {
+            public void onSwipeLeft() {
+                if(imgindex<ad.getImages().size()-1) {
+                    try {
+                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex+1)));
+                    GlideApp.with(getApplicationContext())
+                            .load(bitmap1)
+                            .into(image1);
+                    imgindex++;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        });
-        next.setOnClickListener(v -> {
-            if(imgindex<ad.getImages().size()-1) {
-                try {
-                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex+1)));
-                    GlideApp.with(AddAdActivity.this).load(bitmap1).into(image1);
-                    imgindex++;
-                } catch (IOException e) {
-                    e.printStackTrace();
+            public void onSwipeRight() {
+                if(imgindex>0) {
+                    try {
+                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(ad.getImg(imgindex-1)));
+                    GlideApp.with(getApplicationContext())
+                            .load(bitmap1)
+                            .into(image1);
+                    imgindex--;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
