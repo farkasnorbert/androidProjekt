@@ -58,6 +58,10 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
                     return true;
                 case R.id.navigation_add:
                     EditText title = findViewById(R.id.title);
+                    if(title.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext(), "No title", Toast.LENGTH_LONG).show();
+                        return true;
+                    }
                     ad.setTitle(title.getText().toString());
                     EditText sdesc = findViewById(R.id.desc);
                     ad.setSdesc(sdesc.getText().toString());
@@ -67,9 +71,13 @@ public class AddAdActivity extends AppCompatActivity implements LoaderManager.Lo
                     ad.setPhone(uphone.getText().toString());
                     EditText location = findViewById(R.id.location);
                     ad.setLocation(location.getText().toString());
-                    Bundle queryBundle = new Bundle();
-                    queryBundle.putString("AD", new Gson().toJson(ad));
-                    getSupportLoaderManager().restartLoader(0, queryBundle, AddAdActivity.this);
+                    if(ad.getImagesSize()>0) {
+                        Bundle queryBundle = new Bundle();
+                        queryBundle.putString("AD", new Gson().toJson(ad));
+                        getSupportLoaderManager().restartLoader(0, queryBundle, AddAdActivity.this);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No image added", Toast.LENGTH_LONG).show();
+                    }
                     return true;
             }
             return false;
