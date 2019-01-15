@@ -31,13 +31,13 @@ import farkasnorbert.sapientia.ms.androidprojekt.Modell.Ad;
 import farkasnorbert.sapientia.ms.androidprojekt.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.WordViewHolder> {
-    private ArrayList<Ad> mWordList;
+    private ArrayList<Ad> Ads;
     private LayoutInflater mInflater;
 
     public RecyclerViewAdapter(Context context,
                                ArrayList<Ad> wordList) {
         mInflater = LayoutInflater.from(context);
-        this.mWordList = wordList;
+        this.Ads = wordList;
     }
 
     @NonNull
@@ -51,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.WordViewHolder holder, final int position) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        final Ad mCurrent = mWordList.get(position);
+        final Ad mCurrent = Ads.get(position);
         holder.Ad.setOnClickListener(v -> {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mCurrent.addvNumber();
@@ -106,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mWordList.size();
+        return Ads.size();
     }
 
 }

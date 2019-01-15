@@ -109,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (!task.isSuccessful()) {
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                             // The verification code entered was invalid
-                            Toast.makeText(getApplicationContext(), "Invalid Code", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
